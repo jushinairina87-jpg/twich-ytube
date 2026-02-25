@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamHub 2026 — Стримеры и стримы</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0c12;
+            color: #f0f4f8;
+            line-height: 1.5;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { display: block; max-width: 100%; }
+
+        header {
+            background: #11161f;
+            padding: 1rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2f3a;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff4d4d, #a96eff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        nav { display: flex; gap: 2rem; font-weight: 500; }
+        nav a {
+            transition: color 0.2s;
+            position: relative;
+        }
+        nav a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+            background: #ff4d4d; transition: width 0.2s;
+        }
+        nav a:hover { color: #ff4d4d; }
+        nav a:hover::after { width: 100%; }
+        .search-icon { color: #aaa; font-size: 1.3rem; cursor: pointer; transition: color 0.2s; }
+        .search-icon:hover { color: #ff4d4d; }
+
+        .hero {
+            background: linear-gradient(145deg, #1a1f2b, #0b0f18);
+            padding: 4rem 5% 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            border-bottom: 1px solid #2a2f3a;
+        }
+        .hero-content { max-width: 620px; }
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(135deg, #fff, #ffb0b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-content p { color: #b0b8c5; font-size: 1.25rem; margin-bottom: 2.2rem; }
+        .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+        .stat-item { display: flex; flex-direction: column; }
+        .stat-value { font-size: 1.7rem; font-weight: 700; color: #ff4d4d; }
+        .stat-label { font-size: 0.95rem; color: #8e9aaf; }
+        .hero-image {
+            flex-shrink: 0;
+            width: 100%;
+            max-width: 420px;
+            height: 240px;
+            background: url('https://images.unsplash.com/photo-1611162618071-b39a2ec257db?auto=format&fit=crop&w=500&q=80') center/cover;
+            border-radius: 24px;
+            border: 2px solid #3a4050;
+            box-shadow: 0 20px 40px -15px rgba(255,77,77,0.25);
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 2.5rem 5%; }
+        .section-title {
+            font-size: 2.1rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .section-title span {
+            font-size: 1rem;
+            background: rgba(255,77,77,0.12);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            border: 1px solid #ff4d4d40;
+            color: #ff4d4d;
+        }
+
+        .hot-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+        .topic-tag {
+            background: #1f2632;
+            padding: 0.6rem 1.4rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #ddd;
+            border: 1px solid #3a4050;
+            transition: all 0.25s;
+        }
+        .topic-tag:hover {
+            background: #ff4d4d22;
+            border-color: #ff4d4d;
+            color: #ff4d4d;
+        }
+
+        .streamers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        .streamer-card {
+            background: #131926;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid #2a2f3a;
+            padding: 1.6rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .streamer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 40px -15px #ff4d4d30;
+            border-color: #ff4d4d70;
+        }
+        .streamer-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.2rem;
+            border: 3px solid #ff4d4d;
+            align-self: center;
+        }
+        .streamer-name { font-size: 1.6rem; font-weight: 700; text-align: center; margin-bottom: 0.6rem; }
+        .streamer-meta {
+            text-align: center;
+            color: #a0a8b5;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        .streamer-platforms {
+            display: flex;
+            justify-content: center;
+            gap: 1.4rem;
+            margin: 1rem 0;
+        }
+        .platform-icon { font-size: 1.6rem; color: #aaa; transition: color 0.25s; }
+        .platform-icon:hover { color: #ff4d4d; }
+        .streamer-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: auto;
+            padding-top: 1.2rem;
+            border-top: 1px solid #2a2f3a;
+        }
+        .stat { text-align: center; }
+        .stat .value { font-weight: 700; color: #ff4d4d; font-size: 1.3rem; }
+        .stat .label { font-size: 0.85rem; color: #8e9aaf; }
+
+        footer {
+            background: #0d121b;
+            padding: 3.5rem 5% 2rem;
+            border-top: 1px solid #2a2f3a;
+            margin-top: 4rem;
+            text-align: center;
+        }
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff4d4d, #a96eff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+        .social-links { display: flex; justify-content: center; gap: 2rem; font-size: 1.8rem; margin-bottom: 2rem; }
+        .social-links a { color: #aaa; transition: color 0.25s; }
+        .social-links a:hover { color: #ff4d4d; }
+        .footer-bottom { color: #6a7285; font-size: 0.95rem; }
+
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; text-align: center; padding: 3rem 5%; }
+            .hero-stats { justify-content: center; gap: 2rem; }
+            nav { justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">StreamHub 2026</div>
+    <nav>
+        <a href="#">Стримеры</a>
+        <a href="#">YouTube</a>
+        <a href="#">Расписание</a>
+        <a href="#">Топ</a>
+        <a href="#">Категории</a>
+    </nav>
+    <div class="search-icon"><i class="fas fa-search"></i></div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Стримеры и стримы 2026</h1>
+        <p>Актуальный топ стримеров Twitch, Kick, YouTube • расписание • популярные категории • всё в одном месте.</p>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-value">600+</span>
+                <span class="stat-label">активных стримеров</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">3.1M+</span>
+                <span class="stat-label">средний онлайн</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">24/7</span>
+                <span class="stat-label">прямые эфиры</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-image" aria-label="Стример в неоновой комнате"></div>
+</section>
+
+<main class="container">
+
+    <div class="hot-topics">
+        <span class="topic-tag"><i class="fas fa-fire"></i> Just Chatting</span>
+        <span class="topic-tag">ARC Raiders</span>
+        <span class="topic-tag">Rocket League</span>
+        <span class="topic-tag">Valorant</span>
+        <span class="topic-tag">League of Legends</span>
+        <span class="topic-tag">GTA V / VI</span>
+        <span class="topic-tag">IRL</span>
+    </div>
+
+    <div class="section-title">
+        Топ стримеры февраля 2026
+        <span>по часам просмотра</span>
+    </div>
+
+    <div class="streamers-grid">
+
+        <div class="streamer-card">
+            <img class="streamer-avatar" src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=200&q=80" alt="TheBurntPeanut">
+            <div class="streamer-name">TheBurntPeanut</div>
+            <div class="streamer-meta">ARC Raiders / Just Chatting</div>
+            <div class="streamer-platforms">
+                <a href="#" class="platform-icon"><i class="fab fa-twitch"></i></a>
+            </div>
+            <div class="streamer-stats">
+                <div class="stat"><span class="value">~10M</span> <span class="label">часов</span></div>
+                <div class="stat"><span class="value">57K</span> <span class="label">ср. онлайн</span></div>
+            </div>
+        </div>
+
+        <div class="streamer-card">
+            <img class="streamer-avatar" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=200&q=80" alt="Jynxzi">
+            <div class="streamer-name">Jynxzi</div>
+            <div class="streamer-meta">Rocket League / Valorant</div>
+            <div class="streamer-platforms">
+                <a href="#" class="platform-icon"><i class="fab fa-twitch"></i></a>
+            </div>
+            <div class="streamer-stats">
+                <div class="stat"><span class="value">~8.5M</span> <span class="label">часов</span></div>
+                <div class="stat"><span class="value">45K</span> <span class="label">ср. онлайн</span></div>
+            </div>
+        </div>
+
+        <div class="streamer-card">
+            <img class="streamer-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Caedrel">
+            <div class="streamer-name">Caedrel</div>
+            <div class="streamer-meta">League of Legends</div>
+            <div class="streamer-platforms">
+                <a href="#" class="platform-icon"><i class="fab fa-twitch"></i></a>
+            </div>
+            <div class="streamer-stats">
+                <div class="stat"><span class="value">~9.5M</span> <span class="label">часов</span></div>
+                <div class="stat"><span class="value">51K</span> <span class="label">ср. онлайн</span></div>
+            </div>
+        </div>
+
+        <div class="streamer-card">
+            <img class="streamer-avatar" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=200&q=80" alt="Kai Cenat">
+            <div class="streamer-name">Kai Cenat</div>
+            <div class="streamer-meta">Just Chatting / IRL</div>
+            <div class="streamer-platforms">
+                <a href="#" class="platform-icon"><i class="fab fa-twitch"></i></a>
+                <a href="#" class="platform-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="streamer-stats">
+                <div class="stat"><span class="value">20.2M</span> <span class="label">фолловеров</span></div>
+                <div class="stat"><span class="value">высокий</span> <span class="label">онлайн</span></div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-logo">StreamHub 2026</div>
+        <div class="social-links">
+            <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="footer-bottom">
+            © 2026 StreamHub • Данные на 25 февраля 2026 • Для стримеров и зрителей
+        </div>
+    </footer>
+
+</body>
+</html>
