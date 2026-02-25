@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamers & YouTube 2026</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0c12;
+            color: #f0f4f8;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* Header */
+        header {
+            background-color: #11161f;
+            padding: 1rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2f3a;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff4d4d, #a96eff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            font-weight: 500;
+        }
+
+        nav a {
+            transition: color 0.2s;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff4d4d;
+            transition: width 0.2s;
+        }
+
+        nav a:hover {
+            color: #ff4d4d;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .search-icon {
+            color: #aaa;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .search-icon:hover {
+            color: #ff4d4d;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(145deg, #1a1f2b, #0b0f18);
+            padding: 3rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            border-bottom: 1px solid #2a2f3a;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #ffb0b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            color: #b0b8c5;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff4d4d;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #8e9aaf;
+        }
+
+        .hero-image {
+            flex-shrink: 0;
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
+            background: url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80') center/cover no-repeat;
+            border-radius: 24px;
+            border: 2px solid #3a4050;
+            box-shadow: 0 20px 30px -10px rgba(255, 77, 77, 0.2);
+        }
+
+        /* Main */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title span {
+            color: #ff4d4d;
+            font-size: 1rem;
+            background: rgba(255, 77, 77, 0.1);
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            border: 1px solid #ff4d4d40;
+        }
+
+        /* Hot topics (games) */
+        .hot-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+
+        .topic-tag {
+            background: #1f2632;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #ccc;
+            border: 1px solid #3a4050;
+            transition: all 0.2s;
+        }
+
+        .topic-tag:hover {
+            background: #ff4d4d20;
+            border-color: #ff4d4d;
+            color: #ff4d4d;
+            cursor: pointer;
+        }
+
+        /* Streamers Grid */
+        .streamers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .streamer-card {
+            background: #131926;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #2a2f3a;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+        }
+
+        .streamer-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -10px #ff4d4d40;
+            border-color: #ff4d4d60;
+        }
+
+        .streamer-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid #ff4d4d;
+        }
+
+        .streamer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .streamer-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .streamer-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #8e9aaf;
+            font-size: 0.9rem;
+        }
+
+        .streamer-meta i {
+            color: #ff4d4d;
+            width: 16px;
+        }
+
+        .streamer-platforms {
+            display: flex;
+            gap: 1rem;
+            margin: 0.8rem 0;
+        }
+
+        .platform-icon {
+            font-size: 1.5rem;
+            color: #aaa;
+            transition: color 0.2s;
+        }
+
+        .platform-icon:hover {
+            color: #ff4d4d;
+        }
+
+        .streamer-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid #2a2f3a;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat .value {
+            font-weight: 700;
+            color: #ff4d4d;
+        }
+
+        .stat .label {
+            font-size: 0.8rem;
+            color: #8e9aaf;
+        }
+
+        /* YouTube Videos Grid */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .video-card {
+            background: #131926;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #2a2f3a;
+            transition: 0.2s;
+        }
+
+        .video-card:hover {
+            transform: scale(1.02);
+            border-color: #ff4d4d;
+        }
+
+        .video-thumb {
+            position: relative;
+            width: 100%;
+            height: 140px;
+            background: #1f2632;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+        }
+
+        .video-thumb i {
+            position: absolute;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 10px black;
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #8e9aaf;
+            font-size: 0.8rem;
+        }
+
+        /* Schedule Table */
+        .schedule-table {
+            background: #131926;
+            border-radius: 20px;
+            border: 1px solid #2a2f3a;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        .schedule-row {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #2a2f3a;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .schedule-row:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-time {
+            min-width: 100px;
+            font-weight: 600;
+            color: #ff4d4d;
+        }
+
+        .schedule-streamer {
+            min-width: 150px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .schedule-streamer img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .schedule-game {
+            min-width: 120px;
+            color: #8e9aaf;
+        }
+
+        .schedule-platform {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #aaa;
+        }
+
+        .schedule-platform i {
+            color: #ff4d4d;
+        }
+
+        /* Leaderboard */
+        .leaderboard {
+            background: #131926;
+            border-radius: 20px;
+            border: 1px solid #2a2f3a;
+            padding: 1.5rem;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #2a2f3a;
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .rank {
+            font-weight: 700;
+            color: #ff4d4d;
+            min-width: 30px;
+        }
+
+        .avatar-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .leaderboard-info {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .views {
+            color: #8e9aaf;
+        }
+
+        /* Footer */
+        footer {
+            background: #0d121b;
+            padding: 3rem 5% 1.5rem;
+            border-top: 1px solid #2a2f3a;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff4d4d, #a96eff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .social-links a {
+            color: #aaa;
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: #ff4d4d;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #6a7285;
+            font-size: 0.9rem;
+            border-top: 1px solid #222834;
+            padding-top: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            nav {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .hero-image {
+                max-width: 100%;
+                height: 180px;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .schedule-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Stream<span style="color:white; background: transparent; -webkit-text-fill-color: white;">Hub</span> 2026</div>
+        <nav>
+            <a href="#">Стримеры</a>
+            <a href="#">YouTube</a>
+            <a href="#">Расписание</a>
+            <a href="#">Топ</a>
+            <a href="#">Сообщество</a>
+        </nav>
+        <div class="search-icon"><i class="fas fa-search"></i></div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Стримеры и YouTube 2026</h1>
+            <p>Следи за любимыми стримерами, расписанием эфиров и свежими видео на одной платформе.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value">500+</span>
+                    <span class="stat-label">стримеров</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">2.5M</span>
+                    <span class="stat-label">подписчиков</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">24/7</span>
+                    <span class="stat-label">эфиры</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image" aria-label="Студия стримера"></div>
+    </section>
+
+    <main class="container">
+        <!-- Популярные игры -->
+        <div class="hot-topics">
+            <span class="topic-tag"><i class="fas fa-fire" style="color:#ff4d4d;"></i> Just Chatting</span>
+            <span class="topic-tag">Grand Theft Auto VI</span>
+            <span class="topic-tag">Valorant</span>
+            <span class="topic-tag">Dota 2</span>
+            <span class="topic-tag">CS2</span>
+            <span class="topic-tag">Minecraft</span>
+            <span class="topic-tag">IRL</span>
+        </div>
+
+        <!-- Популярные стримеры -->
+        <div class="section-title">
+            Популярные стримеры
+            <span>февраль 2026</span>
+        </div>
+
+        <div class="streamers-grid">
+            <!-- Карточка 1 -->
+            <div class="streamer-card">
+                <img class="streamer-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Avatar">
+                <div class="streamer-info">
+                    <div class="streamer-name">xQc</div>
+                    <div class="streamer-meta"><i class="fas fa-gamepad"></i> Just Chatting / GTA VI</div>
+                    <div class="streamer-platforms">
+                        <a href="#" class="platform-icon"><i class="fab fa-twitch"></i></a>
+                        <a href="#" class="platform-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="platform-icon"><i class="fab fa-kick"></i></a>
+                    </div>
+                    <div class="streamer-stats">
+                        <div class="stat"><span class="value">12.3M</span> <span class="label">фолловеров</span></div>
+                        <div class="stat"><span class="value">85K</span> <span class="label">средний онлайн</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 2 -->
+            <div class="streamer-card">
+                <img class="streamer-avatar" src="https://images.unsplash.com/photo-1494790108777-2f3b1ea8f2b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Avatar">
+                <div class="streamer-info">
+                    <div class="streamer-name">Pokimane</div>
+                    <div class="streamer-meta"><i class="fas fa-gamepad"></i> Valorant / IRL</div>
+                    <div class="streamer-platforms">
+                        <a href="#" class="platform-icon"><i class="fab fa-twitch"></i></a>
+                        <a href="#" class="platform-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <div class="streamer-stats">
+                        <div class="stat"><span class="value">9.2M</span> <span class="label">фолловеров</span></div>
+                        <div class="stat"><span class="value">42K</span> <span class="label">средний онлайн</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 3 -->
+            <div class="streamer-card">
+                <img class="streamer-avatar" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Avatar">
+                <div class="streamer-info">
+                    <div class="streamer-name">Auronplay</div>
+                    <div class="streamer-meta"><i class="fas fa-gamepad"></i> Minecraft / IRL</div>
+                    <div class="streamer-platforms">
+                        <a href="#" class="platform-icon"><i class="fab fa-twitch"></i></a>
+                        <a href="#" class="platform-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <div class="streamer-stats">
+                        <div class="stat"><span class="value">15.1M</span> <span class="label">фолловеров</span></div>
+                        <div class="stat"><span class="value">110K</span> <span class="label">средний онлайн</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 4 -->
+            <div class="streamer-card">
+                <img class="streamer-avatar" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Avatar">
+                <div class="streamer-info">
+                    <div class="streamer-name">CaseOh</div>
+                    <div class="streamer-meta"><i class="fas fa-gamepad"></i> Just Chatting</div>
+                    <div class="streamer-platforms">
+                        <a href="#" class="platform-icon"><i class="fab fa-twitch"></i></a>
+                        <a href="#" class="platform-icon"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                    <div class="streamer-stats">
+                        <div class="stat"><span class="value">6.7M</span> <span class="label">фолловеров</span></div>
+                        <div class="stat"><span class="value">98K</span> <span class="label">средний онлайн</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Последние видео на YouTube -->
+        <div class="section-title">
+            Последние видео
+            <span>YouTube 2026</span>
+        </div>
+
+        <div class="videos-grid">
+            <a href="#" class="video-card">
+                <div class="video-thumb">
+                    <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Video">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">xQc ОБИДЕЛСЯ НА ЧАТ И УШЁЛ...</div>
+                    <div class="video-meta">
+                        <span>xQc</span>
+                        <span>234K просмотров</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="video-card">
+                <div class="video-thumb">
+                    <img src="https://images.unsplash.com/photo-1614680376593-902f74cf0d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Video">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Pokimane пробует корейскую еду 🍜</div>
+                    <div class="video-meta">
+                        <span>Pokimane</span>
+                        <span>567K просмотров</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="video-card">
+                <div class="video-thumb">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Video">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Auronplay: РЕАКЦИЯ НА НОВЫЙ ТРЕЙЛЕР GTA VI</div>
+                    <div class="video-meta">
+                        <span>Auronplay</span>
+                        <span>1.2M просмотров</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="video-card">
+                <div class="video-thumb">
+                    <img src="https://images.unsplash.com/photo-1616523718778-1f5711c8f3b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Video">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">CaseOh толстеет прямо во время стрима? 😱</div>
+                    <div class="video-meta">
+                        <span>CaseOh</span>
+                        <span>890K просмотров</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Расписание стримов -->
+        <div class="section-title">
+            Ближайшие стримы
+            <span>25 февраля – 2 марта</span>
+        </div>
+
+        <div class="schedule-table">
+            <div class="schedule-row">
+                <div class="schedule-time">Сегодня 19:00</div>
+                <div class="schedule-streamer"><img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt=""> xQc</div>
+                <div class="schedule-game">Just Chatting</div>
+                <div class="schedule-platform"><i class="fab fa-twitch"></i> Twitch</div>
+            </div>
+            <div class="schedule-row">
+                <div class="schedule-time">Завтра 17:30</div>
+                <div class="schedule-streamer"><img src="https://images.unsplash.com/photo-1494790108777-2f3b1ea8f2b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt=""> Pokimane</div>
+                <div class="schedule-game">Valorant</div>
+                <div class="schedule-platform"><i class="fab fa-youtube"></i> YouTube</div>
+            </div>
+            <div class="schedule-row">
+                <div class="schedule-time">27 фев 20:00</div>
+                <div class="schedule-streamer"><img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt=""> Auronplay</div>
+                <div class="schedule-game">Minecraft</div>
+                <div class="schedule-platform"><i class="fab fa-twitch"></i> Twitch</div>
+            </div>
+            <div class="schedule-row">
+                <div class="schedule-time">28 фев 22:00</div>
+                <div class="schedule-streamer"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt=""> CaseOh</div>
+                <div class="schedule-game">Just Chatting</div>
+                <div class="schedule-platform"><i class="fab fa-kick"></i> Kick</div>
+            </div>
+        </div>
+
+        <!-- Топ стримеров по просмотрам -->
+        <div class="section-title">
+            Топ стримеров недели
+            <span>по среднему онлайн</span>
+        </div>
+
+        <div class="leaderboard">
+            <div class="leaderboard-item">
+                <span class="rank">1</span>
+                <img class="avatar-small" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt="">
+                <div class="leaderboard-info">
+                    <span><strong>xQc</strong></span>
+                    <span class="views">124.5K зрителей</span>
+                </div>
+            </div>
+            <div class="leaderboard-item">
+                <span class="rank">2</span>
+                <img class="avatar-small" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt="">
+                <div class="leaderboard-info">
+                    <span><strong>Auronplay</strong></span>
+                    <span class="views">112.2K зрителей</span>
+                </div>
+            </div>
+            <div class="leaderboard-item">
+                <span class="rank">3</span>
+                <img class="avatar-small" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt="">
+                <div class="leaderboard-info">
+                    <span><strong>CaseOh</strong></span>
+                    <span class="views">98.7K зрителей</span>
+                </div>
+            </div>
+            <div class="leaderboard-item">
+                <span class="rank">4</span>
+                <img class="avatar-small" src="https://images.unsplash.com/photo-1494790108777-2f3b1ea8f2b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt="">
+                <div class="leaderboard-info">
+                    <span><strong>Pokimane</strong></span>
+                    <span class="views">41.3K зрителей</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">StreamHub 2026</div>
+            <div class="social-links">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 StreamHub. Все права защищены. <br> Сайт для стримеров и YouTube-сообщества.
+        </div>
+    </footer>
+</body>
+</html>
